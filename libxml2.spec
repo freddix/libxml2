@@ -100,11 +100,16 @@ LD_LIBRARY_PATH=.libs ./xmlcatalog --create \
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
 rm -f $RPM_BUILD_ROOT%{py_sitedir}/*.{py,la,a}
 
+%if 0
+%check
+%{__make} -j1 check
+%endif
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun	-p /sbin/ldconfig
+%post	-p /usr/sbin/ldconfig
+%postun	-p /usr/sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
