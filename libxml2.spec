@@ -1,12 +1,12 @@
 Summary:	libXML2 library
 Name:		libxml2
-Version:	2.9.0
-Release:	2
+Version:	2.9.1
+Release:	1
 Epoch:		1
 License:	MIT
 Group:		Libraries
 Source0:	ftp://xmlsoft.org/libxml2/%{name}-%{version}.tar.gz
-# Source0-md5:	5b9bebf4f5d2200ae2c4efe8fa6103f7
+# Source0-md5:	9c0cfef285d5c4a5c80d00904ddab380
 Patch0:		%{name}-man_fixes.patch
 Patch1:		%{name}-open.gz.patch
 URL:		http://xmlsoft.org/
