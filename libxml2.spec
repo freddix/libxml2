@@ -1,7 +1,8 @@
+# based on PLD Linux spec git://git.pld-linux.org/packages/libxml2.git
 Summary:	libXML2 library
 Name:		libxml2
 Version:	2.9.1
-Release:	2
+Release:	3
 Epoch:		1
 License:	MIT
 Group:		Libraries
@@ -18,6 +19,7 @@ BuildRequires:	python-devel
 BuildRequires:	python-modules
 BuildRequires:	readline-devel
 BuildRequires:	rpm-pythonprov
+BuildRequires:	xz-devel
 BuildRequires:	zlib-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -70,7 +72,9 @@ Python support for libxml2.
 %{__automake}
 %configure \
 	--disable-silent-rules	\
-	--enable-static=no
+	--enable-static=no	\
+	--with-history		\
+	--with-threads
 %{__make}
 
 %install
@@ -85,7 +89,9 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_docdir}/%{name}-devel-%{version}
 mv -f $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/html \
 	$RPM_BUILD_ROOT%{_docdir}/%{name}-devel-%{version}
-rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}-python-%{version}/examples
 
 # deal with gtk-doc files
 install -d $RPM_BUILD_ROOT%{_gtkdocdir}
@@ -98,12 +104,10 @@ LD_LIBRARY_PATH=.libs ./xmlcatalog --create \
 
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
-rm -f $RPM_BUILD_ROOT%{py_sitedir}/*.{py,la,a}
+%{__rm} $RPM_BUILD_ROOT%{py_sitedir}/*.{py,la}
 
-%if 0
 %check
 %{__make} -j1 check
-%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
