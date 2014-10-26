@@ -1,13 +1,13 @@
 # based on PLD Linux spec git://git.pld-linux.org/packages/libxml2.git
 Summary:	libXML2 library
 Name:		libxml2
-Version:	2.9.1
-Release:	3
+Version:	2.9.2
+Release:	1
 Epoch:		1
 License:	MIT
 Group:		Libraries
 Source0:	ftp://xmlsoft.org/libxml2/%{name}-%{version}.tar.gz
-# Source0-md5:	9c0cfef285d5c4a5c80d00904ddab380
+# Source0-md5:	9e6a9aca9d155737868b3dc5fd82f788
 Patch0:		%{name}-man_fixes.patch
 Patch1:		%{name}-open.gz.patch
 URL:		http://xmlsoft.org/
@@ -105,6 +105,7 @@ LD_LIBRARY_PATH=.libs ./xmlcatalog --create \
 %py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
 %py_comp $RPM_BUILD_ROOT%{py_sitedir}
 %{__rm} $RPM_BUILD_ROOT%{py_sitedir}/*.{py,la}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %check
 %{__make} -j1 check
@@ -130,9 +131,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc %{_docdir}/%{name}-devel-%{version}
 %attr(755,root,root) %{_bindir}/xml2-config
 %attr(755,root,root) %{_libdir}/libxml2.so
-%{_libdir}/libxml2.la
 %{_aclocaldir}/*.m4
 %{_includedir}/libxml2
+%{_libdir}/cmake/libxml2
 %{_mandir}/man1/xml2-config.1*
 %{_pkgconfigdir}/*
 
